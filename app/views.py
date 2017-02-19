@@ -10,6 +10,46 @@ from flask import render_template, request, redirect, url_for, flash, session, a
 from werkzeug.utils import secure_filename
 
 
+
+
+###
+# Excercise 2 File listing Method
+###
+def fileList():
+    
+    uploadedFiles = []
+    filenames = []
+    rootdir = os.getcwd() 
+
+    print "log: " + rootdir
+    
+    for subdir, dirs, files in os.walk(app.config['UPLOAD_FOLDER']):
+        for file in files:
+            print os.path.join(subdir, file) 
+            filepath = os.path.join(subdir, file);
+            filename = os.path.basename(filepath)
+            uploadedFiles.append(filepath)
+            filenames.append(filename)
+            
+    return filenames
+    
+    
+    
+def isJpeg(file):
+
+    return "jpg"== os.path.splitext(file)            
+         
+         
+            
+@app.route('/filelisting')
+def files():
+    
+    uploads = fileList()
+    
+    return render_template('files.html', files=uploads )
+ 
+
+
 ###
 # Routing for your application.
 ###
