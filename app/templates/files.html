@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+
+<h1 class="page-header">UPLOAD FILES</h1>
+
+    <div class="alert alert-success">
+        
+        
+        
+       
+       
+        <ul class="flashes">
+            
+            {% if files|length > 0 %}
+                {% for file in files %}
+                    {% set type = file.split('.') %}
+                    
+                    {% if type[1] == 'jpg'  %}
+                        </br><li> {{ file }} </li>
+                        <img src="{{url_for('static', filename ='uploads/'+file  ) }}"></img>
+                    {% else %}            
+                        </br><li> {{ file }} </li> 
+                
+                    {% endif %}
+                
+                {% endfor %}
+            {% else %}
+                <li>No File Uploaded</li>
+            {% endif %}
+            
+            
+            
+        </ul>
+    </div>
+    
+
+
+</br></br></br>
+<p class="lead">This Flask app demonstrates basic file uploads and basic authentication.</p>
+
+{% endblock %}
